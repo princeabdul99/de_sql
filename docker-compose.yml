@@ -1,0 +1,25 @@
+services:
+  # postgres service
+  postgresdatabase:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: db_data_engineer
+    ports:
+      - "5436:5432"
+    volumes:
+      - learning_postgres_data:/var/lib/postgresql
+
+  # pgadmin service
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8086:80"  
+
+volumes:
+  learning_postgres_data:
+    driver: local
