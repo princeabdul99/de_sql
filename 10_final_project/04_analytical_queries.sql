@@ -1,0 +1,24 @@
+-- Analytical queries
+	-- Write a query to calculate the total number of claims per policy type.
+	-- Use analytical functions to determine the monthly claim frequency and average claim amount.
+
+SELECT 
+	pt.PolicyTypeName,
+	COUNT(c.ClaimID) AS TotalClaims
+FROM Claims c
+JOIN Policies p
+	ON c.PolicyID = p.PolicyID
+JOIN PolicyTypes pt
+	ON p.PolicyTypeID = pt.PolicyTypeID
+GROUP BY pt.PolicyTypeName
+ORDER BY TotalClaims DESC;
+
+
+---- Query 2: Monthly claim frequency and average claim amount.
+SELECT 
+	DATE_TRUNC('month', ClaimDate) AS ClaimMonth,
+	COUNT(*) AS ClaimFrequency,
+	ROUND(AVG(ClaimAmount), 2) AS AverageClaimAmount
+FROM claims
+GROUP BY ClaimMonth
+ORDER BY ClaimMonth;
